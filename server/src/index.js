@@ -1,5 +1,5 @@
-// 'use strict';
-// require('dotenv').config()
+'use strict';
+require('dotenv').config()
 
 import express from 'express';
 import cors from 'cors';
@@ -24,7 +24,7 @@ app.use(express.json());
 app.set('port', (process.env.PORT || 3000));
 
 app.get('/', (_, res) => { 
-  res.send('Hello World!') 
+  res.send('Welcome to the PMM Database!') 
 });
 app.use('/api', routes); 
 

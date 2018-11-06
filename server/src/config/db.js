@@ -1,25 +1,28 @@
 import mysql from 'mysql';
-// import dotenv from 'dotenv';
-// dotenv.config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 export default () => {};
 
-// let pool = mysql.createPool({
-//     connectionLimit: 10,
-//     host: process.env.CLEARDB_HOST,
-//     user: process.env.CLEARDB_USER,
-//     password: process.env.CLEARDB_PASSWORD,
-//     database:process.env.CLEARDB_DATABASE,
-//     port: 3306
-// });
+
+console.log(process.env);
+
 let pool = mysql.createPool({
     connectionLimit: 10,
-    host: "localhost",
-    user: "pmm_admin",
-    password: "password",
-    database: "pmm_site",
+    host: process.env.CLEARDB_HOST,
+    user: process.env.CLEARDB_USER,
+    password: process.env.CLEARDB_PASSWORD,
+    database:process.env.CLEARDB_DATABASE,
     insecureAuth: true
 });
+// let pool = mysql.createPool({
+//     connectionLimit: 10,
+//     host: "localhost",
+//     user: "pmm_admin",
+//     password: "password",
+//     database: "pmm_site",
+//     insecureAuth: true
+// });
 
 function executeQuery(sql, args = []) {
     return getConnection()

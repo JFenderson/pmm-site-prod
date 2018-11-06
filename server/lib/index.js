@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _express = _interopRequireDefault(require("express"));
 
@@ -10,8 +10,8 @@ var _routes = _interopRequireDefault(require("./routes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// 'use strict';
-// require('dotenv').config()
+require('dotenv').config();
+
 // import { join } from 'path';
 // import bodyParser from 'body-parser';
 // import AWS from 'aws-sdk';
@@ -32,27 +32,9 @@ app.use(_express.default.urlencoded({
 app.use(_express.default.json());
 app.set('port', process.env.PORT || 3000);
 app.get('/', function (_, res) {
-  res.send('Hello World!');
+  res.send('Welcome to the PMM Database!');
 });
 app.use('/api', _routes.default);
-app.get('/users', function (req, res) {
-  res.json([{
-    "id": 1,
-    "firstName": "Bob",
-    "lastName": "Smith",
-    "email": "bob@gmail.com"
-  }, {
-    "id": 2,
-    "firstName": "Tammy",
-    "lastName": "Norton",
-    "email": "tammy@gmail.com"
-  }, {
-    "id": 3,
-    "firstName": "Tina",
-    "lastName": "Lee",
-    "email": "Tina@gmail.com"
-  }]);
-});
 app.listen(app.get('port'), function (err) {
   if (err) {
     console.log(err);

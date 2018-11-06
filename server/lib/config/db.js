@@ -12,30 +12,33 @@ exports.default = void 0;
 
 var _mysql = _interopRequireDefault(require("mysql"));
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import dotenv from 'dotenv';
-// dotenv.config();
-var _default = function _default() {}; // let pool = mysql.createPool({
-//     connectionLimit: 10,
-//     host: process.env.CLEARDB_HOST,
-//     user: process.env.CLEARDB_USER,
-//     password: process.env.CLEARDB_PASSWORD,
-//     database:process.env.CLEARDB_DATABASE,
-//     port: 3306
-// });
+_dotenv.default.config();
 
+var _default = function _default() {};
 
 exports.default = _default;
+console.log(process.env);
 
 var pool = _mysql.default.createPool({
   connectionLimit: 10,
-  host: "localhost",
-  user: "pmm_admin",
-  password: "password",
-  database: "pmm_site",
+  host: process.env.CLEARDB_HOST,
+  user: process.env.CLEARDB_USER,
+  password: process.env.CLEARDB_PASSWORD,
+  database: process.env.CLEARDB_DATABASE,
   insecureAuth: true
-});
+}); // let pool = mysql.createPool({
+//     connectionLimit: 10,
+//     host: "localhost",
+//     user: "pmm_admin",
+//     password: "password",
+//     database: "pmm_site",
+//     insecureAuth: true
+// });
+
 
 function executeQuery(sql) {
   var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];

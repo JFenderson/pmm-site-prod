@@ -57,7 +57,7 @@ function () {
       var columns = Object.keys(row);
       var values = Object.values(row);
       var placeholderString = (0, _db.generatePlaceholders)(values);
-      var sql = "INSERT INTO ".concat(this.tableName, " (").concat(columns.join(','), ") VALUES (").concat(placeholderString, ");");
+      var sql = "INSERT IGNORE INTO ".concat(this.tableName, " (").concat(columns.join(','), ") VALUES (").concat(placeholderString, ");");
       return (0, _db.executeQuery)(sql, values).then(function (results) {
         return {
           id: results.insertId
