@@ -2,7 +2,7 @@
   "name": "pmm-site-prod",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean:server": "rimraf ./server/lib",
