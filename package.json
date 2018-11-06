@@ -1,0 +1,28 @@
+{
+  "name": "pmm-site-prod",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean:server": "rimraf ./server/lib",
+    "build:server": "babel server/src -d server/lib",
+    "prestart": "npm-run-all --parallel clean:server build:server",
+    "start": "node server/lib/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-register": "^6.26.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "humanparser": "^1.10.0",
+    "mysql": "^2.16.0",
+    "path": "^0.12.7",
+    "zipcodes": "^8.0.0"
+  }
+}

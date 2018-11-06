@@ -1,0 +1,8 @@
+{
+  "name": "PMM Weekend Official Website",
+  "description": "This is the API for the website. Built in node",
+  "repository": "https://github.com/JFenderson/pmm-site-api",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "express", "heroku", "pmm", "purple marching machine", "purple", "marching", "machine", "miles", "college", "miles college", "band", "picnic"],
+  "image": "heroku/nodejs"
+}
