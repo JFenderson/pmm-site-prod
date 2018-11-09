@@ -1,0 +1,31 @@
+extends layout
+block content
+      style.
+        table { width: 100%; }
+        th, tr, td {
+          border: 1px solid black;
+          padding: 10px;
+          margin: 10px;
+        }
+      .wrapper
+           form.form-signin(method='', action='')
+             h1 = title
+              a(href='/logout') Logout
+             table
+                tr
+                    th First Name
+                    th Last Name
+                    th Email
+                    th Phone Number
+                    th City
+                    th State
+                    th Crab Year
+                tr
+                each member in member_list
+                    td  #{member.firstName}
+                    td  #{member.lastName}
+                    td  #{member.email}
+                    td  #{member.phoneNumber}
+                    td  #{member.city}
+                    td  #{member.state}
+                    td  #{member.crabYear}
