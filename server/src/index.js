@@ -5,20 +5,20 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import routes from './routes';
-// import { join } from 'path';
-// import bodyParser from 'body-parser';
-// import AWS from 'aws-sdk';
-// import configure from './config/db';
-// import sgMail from '@sendgrid/mail';
-// import db from './config/googleDb';
-// import * as Storage from '@google-cloud/storage';
+import flash from 'connect-flash';
+import session from 'express-session';
+import compression from 'compression';
+import configurePassport from './config/passport';
 
-const port = 3000;
-const CLIENT_PATH = path.join(__dirname, '../../client');
+
+// const CLIENT_PATH = path.join(__dirname, '../../client');
 let app = express();
 
+
+configurePassport(app);
+app.use(compression());
 app.use(cors());
-app.use(express.static(CLIENT_PATH));
+// app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('port', (process.env.PORT || 3000));
@@ -28,6 +28,9 @@ app.get('/', (_, res) => {
 });
 app.use('/api', routes); 
 
+app.set('views', './views');
+app.set('view engine', 'ejs');
+
 app.listen(app.get('port'), (err) => {
   if(err){
     console.log(err)
@@ -35,5 +38,3 @@ app.listen(app.get('port'), (err) => {
     console.log(`server listening on ${app.get('port')}`)
   }
 });
-
-

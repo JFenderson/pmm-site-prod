@@ -9,7 +9,7 @@ let usersTable = new Table('users')
 let tokensTable = new Table('tokens');
 
 function configurePassport(app){
-    passport.use(new LocalStrategy({
+    passport.use('local', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
         sessions: false
@@ -19,6 +19,7 @@ function configurePassport(app){
             return results[0];
         }).then((result) => {
             if(result && result.password && result.password === password){
+                console.log(result);
                 //found user in the db with the same email and password
                 //we would generate a token if this is true
                 tokensTable.insert({
@@ -37,7 +38,7 @@ function configurePassport(app){
         });
     }));
 
-    passport.use(new BearerStrategy((token, done) => {
+    passport.use('bearer' ,new BearerStrategy((token, done) => {
         let tokenId = decode(token);
         if(!tokenId) {
             return done(null, false, { message: 'Invalid token'});
@@ -57,7 +58,11 @@ function configurePassport(app){
         });
     }));
 
+    app.use(flash());
+
     app.use(passport.initialize());
+
+    app.use(passport.session());
 }
 
 export default configurePassport;

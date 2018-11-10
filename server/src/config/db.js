@@ -2,22 +2,21 @@ import mysql from 'mysql';
 import dotenv from 'dotenv';
 dotenv.config();
 
-let pool = mysql.createPool({
-    connectionLimit: 10,
-    host: process.env.CLEARDB_HOST,
-    user: process.env.CLEARDB_USER,
-    password: process.env.CLEARDB_PASSWORD,
-    database:process.env.CLEARDB_DATABASE,
-    insecureAuth: true
-});
 // let pool = mysql.createPool({
 //     connectionLimit: 10,
-//     host: "localhost",
-//     user: "pmm_admin",
-//     password: "password",
-//     database: "pmm_site",
+//     host: process.env.CLEARDB_HOST,
+//     user: process.env.CLEARDB_USER,
+//     password: process.env.CLEARDB_PASSWORD,
+//     database:process.env.CLEARDB_DATABASE,
 //     insecureAuth: true
 // });
+let pool = mysql.createPool({
+    connectionLimit: 10,
+    host: "localhost",
+    user: "root",
+    password: "fenderson6",
+    database: "pmm_day"
+});
 
 function executeQuery(sql, args = []) {
     return getConnection()
