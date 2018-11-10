@@ -9,6 +9,8 @@ var _express = require("express");
 
 var _user = _interopRequireDefault(require("./user"));
 
+var _admin = _interopRequireDefault(require("./admin"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import stateRouting from '../middleware/routing.mw';
@@ -18,6 +20,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import dotenv from 'dotenv';
 // dotenv.config();
 var router = (0, _express.Router)();
+router.use('/admin', _admin.default);
 router.use('/user', _user.default); // router.use('/charge', stripeDonationsRouter);
 // router.use('/contact', contactRouter);
 // router.use('/photos', awsPhotoRouter);

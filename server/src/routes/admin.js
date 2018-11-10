@@ -2,30 +2,30 @@ import { Router } from 'express';
 import passport from 'passport';
 import Table from '../utils/table';
 import { encode } from '../utils/tokens';
-import { generateHash } from '../utils/security';
+// import { generateHash } from '../utils/security';
 import { tokenMiddleware, isLoggedIn } from '../middleware/auth.mw';
 
 
 let router = Router();
-let member = new Table('members');
+let members = new Table('members');
 //base index page for admin
 router.get('/signin', function(req, res){
-    res.render('login/index',{'message' :req.flash('message')});
+    res.render('login',{'message' :req.flash('message')});
   });
 
   //when the admin post the login info to view the backend data
-router.post("/signin", passport.authenticate('local', {
-    successRedirect: '/user',//if success will redirect to user page to show database of users
+router.post('/signin', passport.authenticate('local', {
+    successRedirect: 'http://localhost:3000/api/admin/user',//if success will redirect to user page to show database of users
     failureRedirect: '/signin',//if fail will redirect to signin page
     failureFlash: true
 }), function(req, res, info){
-    res.render('login/index',{'message' :req.flash(info)});
+    res.render('user',{'message' :req.flash()});
 });
 
-router.get('/user', passport.authenticate('bearer'), (req, res) => {
+router.get('/user', (req, res) => {
     members.getAll()
     .then((member) => {
-      res.render('user',)
+     res.render('user', {"member_list": member})
     })
     .catch((err) => {
       console.log(err)
@@ -49,15 +49,15 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
-router.get('/generate/:pw', (req, res, next)=>{
-    generateHash(req.params.pw)
-        .then((hash)=>{
-            res.send(hash)
-        })
-        .catch((err)=>{
-            next(err);
-        })
-})
+// router.get('/generate/:pw', (req, res, next)=>{
+//     generateHash(req.params.pw)
+//         .then((hash)=>{
+//             res.send(hash)
+//         })
+//         .catch((err)=>{
+//             next(err);
+//         })
+// })
 
 function isAuthenticated(req, res, next) {
 

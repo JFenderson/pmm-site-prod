@@ -12,10 +12,10 @@ dotenv.config();
 // });
 let pool = mysql.createPool({
     connectionLimit: 10,
-    host: "localhost",
+    host: "127.0.0.1",
     user: "root",
     password: "fenderson6",
-    database: "pmm_day"
+    database: "pmm_picnic"
 });
 
 function executeQuery(sql, args = []) {

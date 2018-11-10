@@ -28,6 +28,7 @@ function configurePassport(app){
                 .then((idObj) => {
                     return encode(idObj.id);
                 }).then((tokenValue) => {
+                    console.log(tokenValue)
                     return done(null, { token: tokenValue })
                 })
             }else{
@@ -58,7 +59,13 @@ function configurePassport(app){
         });
     }));
 
-    app.use(flash());
+    passport.serializeUser(function(user, done) {
+        done(null, user);
+      });
+      
+    passport.deserializeUser(function(user, done) {
+    done(null, user);
+    });
 
     app.use(passport.initialize());
 

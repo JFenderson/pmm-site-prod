@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import userRouter from './user';
+import adminRouter from './admin';
 // import stateRouting from '../middleware/routing.mw';
 // import contactRouter from './gmail';
 // import stripeDonationsRouter from './stripePay';
@@ -10,6 +11,7 @@ import userRouter from './user';
 
 let router = Router();
 
+router.use('/admin', adminRouter);
 router.use('/user', userRouter);
 // router.use('/charge', stripeDonationsRouter);
 // router.use('/contact', contactRouter);

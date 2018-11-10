@@ -21,7 +21,7 @@ var usersTable = new _table.default('users');
 var tokensTable = new _table.default('tokens');
 
 function configurePassport(app) {
-  _passport.default.use(new _passportLocal.Strategy({
+  _passport.default.use('local', new _passportLocal.Strategy({
     usernameField: 'email',
     passwordField: 'password',
     sessions: false
@@ -32,13 +32,15 @@ function configurePassport(app) {
       return results[0];
     }).then(function (result) {
       if (result && result.password && result.password === password) {
-        //found user in the db with the same email and password
+        console.log(result); //found user in the db with the same email and password
         //we would generate a token if this is true
+
         tokensTable.insert({
           userid: result.id
         }).then(function (idObj) {
           return (0, _tokens.encode)(idObj.id);
         }).then(function (tokenValue) {
+          console.log(tokenValue);
           return done(null, {
             token: tokenValue
           });
@@ -53,7 +55,7 @@ function configurePassport(app) {
     });
   }));
 
-  _passport.default.use(new _passportHttpBearer.Strategy(function (token, done) {
+  _passport.default.use('bearer', new _passportHttpBearer.Strategy(function (token, done) {
     var tokenId = (0, _tokens.decode)(token);
 
     if (!tokenId) {
@@ -78,7 +80,16 @@ function configurePassport(app) {
     });
   }));
 
+  _passport.default.serializeUser(function (user, done) {
+    done(null, user);
+  });
+
+  _passport.default.deserializeUser(function (user, done) {
+    done(null, user);
+  });
+
   app.use(_passport.default.initialize());
+  app.use(_passport.default.session());
 }
 
 var _default = configurePassport;

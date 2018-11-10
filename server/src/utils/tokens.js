@@ -1,10 +1,12 @@
 import uuidv4 from 'uuid/v4';
+import crypto from 'crypto';
 import { createCipher, createDecipher, createCipheriv } from 'crypto';
 const ALGORITHM = 'aes-256-ctr';
 const SECRET = 'forests';
 
 function encode(value) {
-    const cipher = createCipher(ALGORITHM, SECRET);
+    var IV = new Buffer(crypto.randomBytes(16));
+    const cipher = createCipheriv(ALGORITHM, SECRET, IV);
     let encoded = cipher.update(`${uuidv4()}_${value}`, 'ascii', 'base64');
     encoded += cipher.final('base64');
 
