@@ -28,7 +28,6 @@ function configurePassport(app){
                 .then((idObj) => {
                     return encode(idObj.id);
                 }).then((tokenValue) => {
-                    console.log(tokenValue)
                     return done(null, { token: tokenValue })
                 })
             }else{

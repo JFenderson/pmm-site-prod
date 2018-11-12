@@ -11,12 +11,18 @@ import adminRouter from './admin';
 
 let router = Router();
 
-router.use('/admin', adminRouter);
-router.use('/user', userRouter);
 // router.use('/charge', stripeDonationsRouter);
 // router.use('/contact', contactRouter);
+router.use('/user', userRouter);
 // router.use('/photos', awsPhotoRouter);
 
+router.route('*')
+.get(tokenMiddleware, isLoggedIn)
+.post(tokenMiddleware, isLoggedIn)
+.put(tokenMiddleware, isLoggedIn)
+.delete(tokenMiddleware, isLoggedIn);
+
+router.use('/admin', adminRouter);
 
 
 export default router;

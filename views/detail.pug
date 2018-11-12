@@ -1,0 +1,14 @@
+html
+    head
+      title PMM Member
+    body
+        h1 #{member.firstName} #{member.lastName}
+        article          
+              p Phone: #{member.phoneNumber}
+              p Email: #{member.email}
+              p City: #{member.city}
+              p State: #{member.state}
+              p Crab Year: #{member.crabYear}
+              a(href="#") Edit
+              a(href="#") Delete
+              a(href="#") Back to Members

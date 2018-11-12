@@ -28,14 +28,18 @@ router.get('/', function (req, res) {
   //   console.log('Error getting documents', err);
   // })
   members.getAll().then(function (member) {
-    res.status(200).json(member);
+    res.render('user', {
+      "member_list": member
+    }); // res.status(200).json(member)
   }).catch(function (err) {
     console.log(err);
   });
 });
 router.get('/:id', function (req, res) {
   members.getOne(req.params.id).then(function (member) {
-    res.status(200).json(member);
+    res.render('detail', {
+      "member": member
+    }); // res.status(200).json(member)
   }).catch(function (err) {
     console.log(err);
   });

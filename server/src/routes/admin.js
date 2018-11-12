@@ -15,26 +15,39 @@ router.get('/signin', function(req, res){
 
   //when the admin post the login info to view the backend data
 router.post('/signin', passport.authenticate('local', {
-    successRedirect: 'http://localhost:3000/api/admin/user',//if success will redirect to user page to show database of users
+    successRedirect: 'http://localhost:3000/api/user',//if success will redirect to user page to show database of users
     failureRedirect: '/signin',//if fail will redirect to signin page
     failureFlash: true
 }), function(req, res, info){
     res.render('user',{'message' :req.flash()});
 });
 
-router.get('/user', (req, res) => {
-    members.getAll()
-    .then((member) => {
-     res.render('user', {"member_list": member})
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-});
 
 router.get('/me', tokenMiddleware, isLoggedIn, (req, res) => {
     res.json(req.user);
 });
+
+router.get('/user', (req, res) => {
+    members.getAll()
+    .then((member) => {
+      res.render('user', {"member_list": member});
+      // res.status(200).json(member)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  });
+
+  router.get('/user/:id', (req,res) => {
+    members.getOne(req.params.id)
+    .then((member) => {
+      res.render('detail', {"member": member})
+      // res.status(200).json(member)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  })
 
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, token, info) => {
@@ -58,6 +71,27 @@ router.post('/login', (req, res, next) => {
 //             next(err);
 //         })
 // })
+
+router.put('/user/:id', passport.authenticate('bearer'), (req,res) => {
+    members.update(req.params.id, req.body)
+    .then((results) => {
+        res.render('user',{"member_list": results});
+    }).catch((err) => {
+        console.log(err);
+        res.render('error',{'message' :req.flash()} )
+    });
+});
+
+router.delete('/user/:id', passport.authenticate('bearer'), (req, res) => {
+    let id = req.params.id;
+    members.delete(id)
+    .then((results) => {
+        res.render('user',{"member_list": results});
+    }).catch((err) => {
+        console.log(err);
+        res.render('error',{'message' :req.flash()} )
+    });
+});
 
 function isAuthenticated(req, res, next) {
 

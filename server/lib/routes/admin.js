@@ -28,7 +28,7 @@ router.get('/signin', function (req, res) {
 }); //when the admin post the login info to view the backend data
 
 router.post('/signin', _passport.default.authenticate('local', {
-  successRedirect: 'http://localhost:3000/api/admin/user',
+  successRedirect: 'http://localhost:3000/api/user',
   //if success will redirect to user page to show database of users
   failureRedirect: '/signin',
   //if fail will redirect to signin page
@@ -36,15 +36,6 @@ router.post('/signin', _passport.default.authenticate('local', {
 }), function (req, res, info) {
   res.render('user', {
     'message': req.flash()
-  });
-});
-router.get('/user', function (req, res) {
-  members.getAll().then(function (member) {
-    res.render('user', {
-      "member_list": member
-    });
-  }).catch(function (err) {
-    console.log(err);
   });
 });
 router.get('/me', _auth.tokenMiddleware, _auth.isLoggedIn, function (req, res) {
