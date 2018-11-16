@@ -1,4 +1,3 @@
-extends layout
 block content
       style.
         table { width: 100%; }
@@ -9,24 +8,23 @@ block content
         }
       .wrapper
             h1 PMM Members
-                a(href='/logout') Logout
+                button(type="submit" id="signout" value="Sign Out" name="Sign Out") sign out          
             table
-                for member in member_list
-                    tr
-                          th First Name
-                          th Last Name
-                          th Email
-                          th Phone Number
-                          th City
-                          th State
-                          th Crab Year
-                    tr
-                          td 
-                              a(href=`http://localhost:3000/api/admin/user/${member.id}`)= member.firstName
-                          td 
-                              a(href=`http://localhost:3000/api/admin/user/${member.id}`)= member.lastName
-                          td= member.email
-                          td= member.phoneNumber
-                          td= member.city
-                          td= member.state
-                          td= member.crabYear
+                each memberList in member_list
+                    each member in memberList
+                        tr
+                            th First Name
+                            th Last Name
+                            th Email
+                            th Phone Number
+                            th City
+                            th State
+                            th Crab Year
+                        tr
+                            td= member.firstName
+                            td= member.lastName
+                            td= member.email
+                            td= member.phoneNumber
+                            td= member.city
+                            td= member.state
+                            td= member.crabYear

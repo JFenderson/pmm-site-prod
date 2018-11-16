@@ -41,6 +41,24 @@ router.post('/signin', _passport.default.authenticate('local', {
 router.get('/me', _auth.tokenMiddleware, _auth.isLoggedIn, function (req, res) {
   res.json(req.user);
 });
+router.get('/user', function (req, res) {
+  members.getAll().then(function (member) {
+    res.render('user', {
+      "member_list": member
+    }); // res.status(200).json(member)
+  }).catch(function (err) {
+    console.log(err);
+  });
+});
+router.get('/user/:id', function (req, res) {
+  members.getOne(req.params.id).then(function (member) {
+    res.render('detail', {
+      "member": member
+    }); // res.status(200).json(member)
+  }).catch(function (err) {
+    console.log(err);
+  });
+});
 router.post('/login', function (req, res, next) {
   _passport.default.authenticate('local', function (err, token, info) {
     if (err) {
@@ -61,6 +79,32 @@ router.post('/login', function (req, res, next) {
 //             next(err);
 //         })
 // })
+
+router.put('/user/:id', _passport.default.authenticate('bearer'), function (req, res) {
+  members.update(req.params.id, req.body).then(function (results) {
+    res.render('user', {
+      "member_list": results
+    });
+  }).catch(function (err) {
+    console.log(err);
+    res.render('error', {
+      'message': req.flash()
+    });
+  });
+});
+router.delete('/user/:id', _passport.default.authenticate('bearer'), function (req, res) {
+  var id = req.params.id;
+  members.delete(id).then(function (results) {
+    res.render('user', {
+      "member_list": results
+    });
+  }).catch(function (err) {
+    console.log(err);
+    res.render('error', {
+      'message': req.flash()
+    });
+  });
+});
 
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) return next();

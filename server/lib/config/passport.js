@@ -40,7 +40,6 @@ function configurePassport(app) {
         }).then(function (idObj) {
           return (0, _tokens.encode)(idObj.id);
         }).then(function (tokenValue) {
-          console.log(tokenValue);
           return done(null, {
             token: tokenValue
           });

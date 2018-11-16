@@ -1,0 +1,19 @@
+body {
+   text-align: center;
+}
+
+.favFotos img {
+   height: 120px;
+   /* width: 120px; */
+   margin: 20ps;
+   float: left;
+}
+
+.hidden {
+  display: none;
+}
+
+.url {
+   width: 500px;
+}
+

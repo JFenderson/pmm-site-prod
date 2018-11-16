@@ -1,5 +1,16 @@
-extends layout
+doctype html
+html
+head
+  title PMM API
+  script(src='https://www.gstatic.com/firebasejs/5.5.8/firebase-app.js')
+  script(src='https://www.gstatic.com/firebasejs/5.5.8/firebase-auth.js')
+  script(src='https://www.gstatic.com/firebasejs/5.5.8/firebase-database.js')
 
-block content
-  h1 Welcome to the PMM Database
+body 
+  h1 Welcome to the PMM API
+  h3 Sign In
+  button(id="google-signin" onclick="signInWithGoogle();" value="Sign in with Google")
+  button(type="submit" id="signout" value="Sign Out")
+  
+  script(src="./js/firebaseAuth.js")
   

@@ -1,4 +1,5 @@
 import passport from 'passport';
+import firebase from 'firebase';
 
 function tokenMiddleware(req, res, next) {
     passport.authenticate('bearer', { session: false })(req, res, next);
@@ -13,13 +14,24 @@ function isLoggedIn(req, res, next) {
 }
 
 function isAuthenticated(req, res, next) {
-
-    if (req.isAuthenticated())
-  
-      return next();
-  
-    res.redirect('/signin');
-  
+    var user = firebase.auth().currentUser;
+    if (user !== null) {
+      req.user = user;
+      next();
+    } else {
+      res.redirect('/login');
+    }
   }
 
-export { tokenMiddleware, isLoggedIn };
+// function isAuthenticated(req, res, next) {
+
+//     if (req.isAuthenticated())
+  
+//       return next();
+  
+//     res.redirect('/signin');
+  
+//   }
+
+
+export { tokenMiddleware, isLoggedIn, isAuthenticated };
