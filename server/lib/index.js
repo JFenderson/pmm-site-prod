@@ -61,6 +61,8 @@ app.get('/', function (_, res) {
 
 var db = _firebaseAdmin.default.firestore();
 
+var database = _firebaseAdmin.default.database();
+
 var settings = {
   /* your settings... */
   timestampsInSnapshots: true
@@ -68,6 +70,7 @@ var settings = {
 
 _firebaseAdmin.default.firestore().settings(settings);
 
+var memeberRef = database.ref('/pmmMembers');
 var pmmMember = db.collection('pmmMembers');
 app.post('/user', function (req, res) {
   var _req$body = req.body,
@@ -94,6 +97,7 @@ app.post('/user', function (req, res) {
   }).catch(function (err) {
     console.log('There was an error posting users', err);
   });
+  memeberRef.push(data);
 });
 app.get('/user', function (req, res) {
   pmmMember.get().then(function (snapshot) {

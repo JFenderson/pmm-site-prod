@@ -47,9 +47,12 @@ app.get('/', (_, res) => {
 });
 
 let db = admin.firestore();
+let database = admin.database();
+
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 admin.firestore().settings(settings);
-let pmmMember = db.collection('pmmMembers')
+
+let pmmMember = db.collection('pmmMembers');
 
 app.post('/user', (req, res) => {
   let { email, phoneNumber, crabYear} = req.body;
@@ -74,6 +77,8 @@ app.post('/user', (req, res) => {
     .catch((err)=> {
       console.log('There was an error posting users',err);
     })
+  
+    database.ref(`/pmmMembers/${name.firstName}_${name.lastName}`).push(data);
 });
 
 app.get('/user', (req, res) => {
@@ -89,6 +94,7 @@ app.get('/user', (req, res) => {
   .catch((err) => {
     console.log('Error getting documents', err);
   })
+
 });
 
 function isAuthenticated(req, res, next) {
